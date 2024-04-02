@@ -9,11 +9,11 @@ import useLoginModal from "@/hooks/useLoginModal"
 import useRentModal from "@/hooks/useLoginModal"
 import { cookies } from "next/headers"
 import { signOut, useSession } from "next-auth/react"
-import { User } from "@prisma/client"
 import { useRouter } from "next/navigation"
+import { SafeUser } from "@/app/types"
 
 interface UserMenuProps {
-  currentUser?: User | null;
+  currentUser?: SafeUser | null;
 }
 
 const UserMenu: React.FC<UserMenuProps> = ({
