@@ -1,0 +1,1 @@
+export const baseImageUrl = 'https://res.cloudinary.com/dxi3zjhpf/image/upload/v1711225028/'
