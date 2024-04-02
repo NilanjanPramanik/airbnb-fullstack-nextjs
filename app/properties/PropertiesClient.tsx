@@ -53,7 +53,6 @@ const PropertiesClient: React.FC<PropertiesClientProps> = ({
             <ListingCard
               key={listing.id}
               data={listing}
-              listing={listing}
               actionId={listing.id}
               actionLabel="Delete Property"
               onAction={onCancel}

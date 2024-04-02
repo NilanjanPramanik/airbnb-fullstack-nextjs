@@ -31,7 +31,7 @@ const ListingCard: React.FC<ListingCardProps> = ({
   disabled,
   actionLabel,
   actionId = '',
-  currentUser
+  currentUser,
 }) => {
   const router = useRouter();
   const {getByValue} = useCountries();

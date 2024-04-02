@@ -1,7 +1,7 @@
 'use client'
 
 
-import { SafeUser } from "../types";
+import { SafeReservation, SafeUser } from "../types";
 import Container from "@/components/Container";
 import Heading from "@/components/Heading";
 import { useRouter } from "next/navigation";
@@ -9,10 +9,9 @@ import { useCallback, useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
 import ListingCard from "@/components/listings/ListingCard";
-import { Reservation } from "@prisma/client";
 
 interface TripsClientProps {
-  reservations: Reservation[];
+  reservations: SafeReservation[];
   currentUser?: SafeUser;
 }
 
@@ -53,7 +52,7 @@ const TripsClient: React.FC<TripsClientProps> = ({
           reservations.map((reservation) => (
             <ListingCard
               key={reservation.id}
-              data={reservation.listings}
+              data={reservation.listing}
               reservation={reservation}
               actionId={reservation.id}
               actionLabel="Cancel reservaion"
