@@ -1,6 +1,6 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 ## Overview
-  Dumy card number 4000003560000008 
+  Dumy card number `4000003560000008`
 ## Getting Started
 
 First, run the development server:
