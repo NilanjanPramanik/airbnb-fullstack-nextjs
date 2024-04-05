@@ -19,12 +19,11 @@ import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 const LoginModal = () => {
+  const router = useRouter()
   const loginModal = useLoginModal();
   const registerModal = useRegisterModal();
   
   const [isLoading, setIsLoading] = useState(false);
-
-  const router = useRouter();
 
   const {
     register,
@@ -96,7 +95,7 @@ const LoginModal = () => {
   const footerContent = (
     <div className="flex flex-col gap-4 mt-3">
       <hr />
-      <Button
+      {/* <Button
         outline
         label="Continue with Google"
         icon={FcGoogle}
@@ -107,7 +106,7 @@ const LoginModal = () => {
         label="Continue with Github"
         icon={AiFillGithub}
         onClick={() => signIn('github')}
-      />
+      /> */}
       <div className="text-neutral-500 text-center mt-4 font-light">
         <div className="flex flex-row justify-center gap-2 items-center">
           <div>

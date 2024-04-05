@@ -17,8 +17,11 @@ import { FcGoogle } from "react-icons/fc";
 import { AiFillGithub } from "react-icons/ai";
 import useLoginModal from "@/hooks/useLoginModal";
 import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 const RegisterModal = () => {
+  const router = useRouter();
+
   const registerModal = useRegisterModal();
   const loginModal = useLoginModal();
   
@@ -43,6 +46,7 @@ const RegisterModal = () => {
 
     axios.post('/api/register', data)
       .then(() => {
+        router.refresh();
         registerModal.onClose();
         loginModal.onOpen();
       })
@@ -97,12 +101,12 @@ const RegisterModal = () => {
   const footerContent = (
     <div className="flex flex-col gap-4 mt-3">
       <hr />
-      <Button
+      {/* <Button
         outline
         label="Continue with Google"
         icon={FcGoogle}
         onClick={() => signIn('google',{
-          callbackUrl: 'http://localhost:3000/'
+          callbackUrl: process.env.NEXT_PUBLIC_APP_URL
         })}
       />
       <Button
@@ -110,7 +114,7 @@ const RegisterModal = () => {
         label="Continue with Github"
         icon={AiFillGithub}
         onClick={() => signIn('github')}
-      />
+      /> */}
       <div className="text-neutral-500 text-center mt-4 font-light">
         <div className="flex flex-row justify-center gap-2 items-center">
           <div>

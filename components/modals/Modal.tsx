@@ -90,7 +90,7 @@ const Modal: React.FC<ModalProps> = ({
             `} 
           >
             <div
-              className="flex flex-col translate h-full lg:h-auto md:h-auto border-0 rounded-lg shadow-lg relative w-full bg-white outline-none focus:outline-none"
+              className="flex flex-col translate h-[100vh] lg:h-auto md:h-auto border-0 rounded-lg shadow-lg relative w-full bg-white outline-none focus:outline-none"
             >
               {/* HEADER */}
               <div
