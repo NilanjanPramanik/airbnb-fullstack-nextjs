@@ -1,4 +1,5 @@
-import { useSearchParams } from "next/navigation";
+export const dynamic = 'force-dynamic';
+
 import { SafeListing, SafeUser } from "./types";
 
 import { IListingsParams } from "./actions/getListings";
@@ -9,8 +10,6 @@ import ClientOnly from "@/components/ClientOnly";
 import Container from "@/components/Container";
 import EmptyState from "@/components/EmptyState";
 import ListingCard from "@/components/listings/ListingCard";
-import { getServerSession } from "next-auth";
-import { authOptions } from "./utils/auth";
 
 interface HomeProps {
   searchParams: IListingsParams;
