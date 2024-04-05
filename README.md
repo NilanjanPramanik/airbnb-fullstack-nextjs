@@ -1,5 +1,6 @@
 # This is a [Airbnb](https://airbnb.co.in) clone build in nextjs
 ## Overview
+### Stripe payment gateway 
   Dumy card number `4000003560000008`
 ## Getting Started
 
