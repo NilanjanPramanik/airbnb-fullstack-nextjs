@@ -17,7 +17,6 @@ interface HomeProps {
 
 
 const Home = async ({ searchParams }: HomeProps) => {
-  // As the Home page is a server component so we can use server actions insted of api routes.
   const currentUser = await getCurrentUser();
   const listings = await getListings(searchParams);
 
