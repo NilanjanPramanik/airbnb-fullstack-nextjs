@@ -4,8 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "prisma:generate": "prisma generate",
-    "build": "prisma:generate && next build",
+    "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
@@ -34,6 +33,7 @@
     "react-leaflet": "^4.2.1",
     "react-select": "^5.8.0",
     "react-spinners": "^0.13.8",
+    "stripe": "^14.23.0",
     "world-countries": "^5.0.0",
     "zustand": "^4.5.2"
   },

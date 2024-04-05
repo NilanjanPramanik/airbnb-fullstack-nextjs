@@ -7,8 +7,7 @@ import MenuItem from "./MenuItem"
 import useRegisterModal from "@/hooks/useRegisterModal"
 import useLoginModal from "@/hooks/useLoginModal"
 import useRentModal from "@/hooks/useLoginModal"
-import { cookies } from "next/headers"
-import { signOut, useSession } from "next-auth/react"
+import { signOut } from "next-auth/react"
 import { useRouter } from "next/navigation"
 import { SafeUser } from "@/app/types"
 
@@ -25,11 +24,13 @@ const UserMenu: React.FC<UserMenuProps> = ({
   const loginModal = useLoginModal();
   const rentModal = useRentModal();
 
+
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleOpen = useCallback(() => {
     setIsOpen((value) => !value);
   }, []);
+
 
   return (
     <div className="relative">
@@ -82,7 +83,10 @@ const UserMenu: React.FC<UserMenuProps> = ({
                 />
                 <hr />
                 <MenuItem
-                  onClick={() => signOut()}
+                  onClick={() => {
+                    signOut();
+                    router.push('/');
+                  }}
                   label="Logout"
                 />
               </>

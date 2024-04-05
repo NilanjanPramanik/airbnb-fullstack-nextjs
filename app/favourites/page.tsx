@@ -4,9 +4,6 @@ import getCurrentUser from "../actions/getCurrentUser"
 import getFavouriteListing from "../actions/getFavouriteListing";
 import FavouritesClient from "./FavouritesClient";
 
-interface FavouritesPageProps {
-
-}
 
 const FavouritesPage = async () => {
   const currentUser = await getCurrentUser();

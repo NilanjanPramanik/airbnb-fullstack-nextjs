@@ -1,4 +1,5 @@
-import { getServerSession } from "next-auth";
+import { getServerSession } from "next-auth/next";
+
 import { authOptions } from "../utils/auth";
 import db from "@/lib/db"
 
@@ -10,6 +11,8 @@ export async function getSession() {
 export default async function getCurrentUser() {
   try{
     const session = await getSession();
+
+    console.log("session: ", session)
 
     if (!session?.user?.email) {
       return null;

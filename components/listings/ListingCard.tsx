@@ -1,8 +1,9 @@
 "use client"
 
-import { format } from "date-fns";
+import qs from 'query-string';
+import { format, formatISO } from "date-fns";
 import { useCallback, useMemo } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import Image from "next/image";
 
 import { SafeListing, SafeReservation, SafeUser } from "@/app/types";
@@ -13,6 +14,7 @@ import HeartButton from "../HeartButton";
 import Button from "../Button";
 
 import { baseImageUrl } from "@/constent";
+import { IListingsParams } from "@/app/actions/getListings";
 
 interface ListingCardProps {
   data: SafeListing;
@@ -22,6 +24,7 @@ interface ListingCardProps {
   actionLabel?: string;
   actionId?: string;
   currentUser?: SafeUser | null;
+  searchParams?: IListingsParams | null;
 }
 
 const ListingCard: React.FC<ListingCardProps> = ({
@@ -32,9 +35,11 @@ const ListingCard: React.FC<ListingCardProps> = ({
   actionLabel,
   actionId = '',
   currentUser,
+  searchParams
 }) => {
   const router = useRouter();
-  const {getByValue} = useCountries();
+  const params = useSearchParams();
+  const { getByValue } = useCountries();
 
   const location = getByValue(data.locationValue);
 
@@ -43,13 +48,13 @@ const ListingCard: React.FC<ListingCardProps> = ({
   const handleCancel = useCallback((e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
 
-    if(disabled) {
+    if (disabled) {
       return;
     }
 
     onAction?.(actionId);
   }, [disabled, onAction, actionId]);
-
+  
   const price = useMemo(() => {
     if (reservation) {
       return reservation.totalPrice;
@@ -57,21 +62,37 @@ const ListingCard: React.FC<ListingCardProps> = ({
     
     return data.price;
   }, [reservation, data.price]);
-
+  
   const reservationDate = useMemo(() => {
     if (!reservation) {
       return null;
     }
-
-    const start = new Date(reservation.startDate);
-    const end = new Date(reservation.endDate);
-
+    
+    const start = new Date(searchParams?.startDate || reservation.startDate);
+    const end = new Date(searchParams?.endDate || reservation.endDate);
+    
     return `${format(start, 'PP')} - ${format(end, 'PP')}`
-  }, [reservation])
+  }, [reservation]);
 
+  const onClick = () => {
+    let currentQuery = {};
+    if (params) {
+      currentQuery = qs.parse(params.toString())
+    }
+
+    console.log(currentQuery)
+
+    const url = qs.stringifyUrl({
+      url: `/listings/${data.id}`,
+      query: currentQuery,
+    }, { skipNull: true })
+
+    router.push(url);
+  }
+  
   return (
-    <div 
-      onClick={() => router.push(`/listings/${data.id}`)}
+    <div
+      onClick={onClick}
       className="col-span-1 cursor-pointer group"
     >
       <div className="flex flex-col gap-2 w-full">
@@ -97,7 +118,7 @@ const ListingCard: React.FC<ListingCardProps> = ({
         </div>
         <div className="flex flex-row items-center gap-1">
           <div className="font-bold">
-            $ {price}
+            ₹ {price}
           </div>
           {!reservation && (
             <div className="font-light">/night</div>

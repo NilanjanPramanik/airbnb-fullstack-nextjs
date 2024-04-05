@@ -7,12 +7,12 @@ interface ParamsProps {
 export default async function getListingById(
   params: ParamsProps
 ) {
+  const { listingId } = params;
   try {
-    const { listingId } = params;
 
     const listing = await db.listing.findUnique({
-      where: { 
-        id: listingId 
+      where: {
+        id: listingId
       },
       include: {
         user: true
@@ -24,10 +24,10 @@ export default async function getListingById(
       return null;
     }
 
-    return  {
+    return {
       ...listing,
       createdAt: listing.createdAt.toISOString(),
-      user : {
+      user: {
         ...listing.user,
         createdAt: listing.user.createdAt.toISOString(),
         updatedAt: listing.user.updatedAt.toISOString(),
@@ -35,7 +35,7 @@ export default async function getListingById(
       }
     }
 
-  } catch (error: any) {
-      throw new Error(error);
+  } catch (err: any) {
+    throw new Error(err);
   }
 }

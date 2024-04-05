@@ -1,6 +1,8 @@
 "use client"
 
 import qs from "query-string"
+import dynamic from "next/dynamic"
+import { formatISO } from "date-fns"
 import { useRouter, useSearchParams } from "next/navigation"
 import { useCallback, useMemo, useState } from "react"
 import { Range } from "react-date-range"
@@ -8,10 +10,9 @@ import { Range } from "react-date-range"
 import useSearchModal from "@/hooks/useSearchModal"
 
 import Modal from "./Modal"
-import CountrySelect, { CountrySelectValue } from "../inputs/CountrySelect"
-import dynamic from "next/dynamic"
-import { formatISO } from "date-fns"
 import Heading from "../Heading"
+
+import CountrySelect, { CountrySelectValue } from "../inputs/CountrySelect"
 import Calendar from "../inputs/Calendar"
 import Counter from "../inputs/Counter"
 

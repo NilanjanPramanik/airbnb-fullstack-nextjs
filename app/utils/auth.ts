@@ -4,6 +4,7 @@ import prisma from "@/lib/db";
 import { NextAuthOptions } from "next-auth";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import GitHubProvider from "next-auth/providers/github"
+import GoogleProvider from "next-auth/providers/google"
 import CredentialsProvider from "next-auth/providers/credentials";
 
 
@@ -14,6 +15,11 @@ export const authOptions = {
     GitHubProvider({
       clientId: process.env.GITHUB_CLIENT_ID as string,
       clientSecret: process.env.GITHUB_CLIENT_SECRET as string,
+    }),
+
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID as string,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
     }),
 
     CredentialsProvider({
@@ -50,6 +56,29 @@ export const authOptions = {
       }
     })
   ],
+  // callbacks: {
+  //   async signIn({ account, profile }) {
+  //     if (!profile?.email) {
+  //       throw new Error("No profile");
+  //     }
+  //     await db.user.upsert({
+  //       where: {
+  //         email: profile.email
+  //       },
+  //       create: {
+  //         email: profile.email,
+  //         name: profile.name,
+  //         image: profile.image,
+  //         isEmailVerified: new Date(),
+  //       },
+  //       update : {
+  //         name: profile.name,
+  //       }
+  //     })
+
+  //     return true;
+  //   },
+  // },
   pages: {
     signIn: '/',
   },

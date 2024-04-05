@@ -1,7 +1,7 @@
 "use client"
 
 import axios from "axios";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Range } from "react-date-range";
 import { differenceInCalendarDays, eachDayOfInterval } from "date-fns";
@@ -17,7 +17,7 @@ import ListingHead from "@/components/listings/ListingHead";
 import ListingInfo from "@/components/listings/ListingInfo";
 import ListingReservation from "@/components/listings/ListingReservation";
 
-const initialDateRange = {
+let initialDateRange = {
   startDate: new Date(),
   endDate: new Date(),
   key: 'selection',
@@ -39,6 +39,18 @@ const ListingClient: React.FC<ListingClientProps> = ({
 
   const loginModal = useLoginModal();
   const router = useRouter();
+  const params = useSearchParams();
+
+  const start = params.get('startDate');
+  const end = params.get('endDate');
+
+  if (start && end ) {
+    initialDateRange = {
+      startDate: new Date(start),
+      endDate: new Date(end),
+      key: 'selection',
+    }
+  }
 
   const disabledDates = useMemo(() => {
     let dates: Date[] = [];
@@ -73,11 +85,13 @@ const ListingClient: React.FC<ListingClientProps> = ({
       listingId: listing?.id,
     })
     .then((res) => {
-      toast.success("Booked!");
+      toast.success("Checking out!");
       setDateRange(initialDateRange);
-      router.push('/trips');
+      // router.push('/trips');
+      window.location.assign(res.data?.url);
     })
-    .catch(() => {
+    .catch((err) => {
+      console.log(err)
       toast.error('Something went wrong!');
     })
     .finally(() => {

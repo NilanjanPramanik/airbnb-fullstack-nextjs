@@ -19,8 +19,10 @@ model User {
   favouriteIds String[] @db.ObjectId
 
   accounts Account[]
+  sessions Session[]
   listings Listing[]
   reservations Reservation[]
+  stripeCustomer StripeCustomer[]
 }
 
 model Account {
@@ -40,6 +42,14 @@ model Account {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider,providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  sessionToken String   @unique
+  userId       String   @db.ObjectId
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Listing {
@@ -71,4 +81,14 @@ model Reservation {
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
   listing Listing @relation(fields: [listingId], references: [id], onDelete: Cascade)
+}
+
+model StripeCustomer {
+  id  String @id @default(auto()) @map("_id") @db.ObjectId
+  userId String @unique @db.ObjectId
+  stripeCustomerId String @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
