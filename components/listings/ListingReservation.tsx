@@ -4,7 +4,6 @@ import { Range } from 'react-date-range';
 import { IListingsParams } from '@/app/actions/getListings';
 import Calendar from '../inputs/Calendar';
 import Button from '../Button';
-import { useSearchParams } from 'next/navigation';
 
 interface ListingReservationProps {
   price: number;
@@ -14,6 +13,7 @@ interface ListingReservationProps {
   onSubmit: () => void;
   disabled?: boolean;
   disabledDates: Date[];
+  buttonLabel: string;
 }
 
 const ListingReservation: React.FC<ListingReservationProps> = ({
@@ -24,6 +24,7 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
   onSubmit,
   disabled,
   disabledDates,
+  buttonLabel,
 }) => {
 
   return (
@@ -46,7 +47,7 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
       <div className='p-4'>
         <Button
           disabled={disabled}
-          label='Reserve'
+          label={buttonLabel}
           onClick={onSubmit}
         />
       </div>

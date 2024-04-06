@@ -71,10 +71,14 @@ const ListingClient: React.FC<ListingClientProps> = ({
   const [totalPrice, setTotalPrice] = useState(listing.price);
   const [dateRange, setDateRange] = useState<Range>(initialDateRange);
 
+  console.log(currentUser)
+
   const onCreateReservation = useCallback(() => {
     if (!currentUser) {
-      return loginModal.onOpen();
+      return;
     }
+
+    console.log(currentUser)
 
     setLoading(true);
 
@@ -146,8 +150,9 @@ const ListingClient: React.FC<ListingClientProps> = ({
                 onChangeDate={(value) => setDateRange(value)}
                 dateRange={dateRange}
                 onSubmit={onCreateReservation}
-                disabled={isLoading}
+                disabled={isLoading || !currentUser}
                 disabledDates={disabledDates}
+                buttonLabel={currentUser ? "Reserve" : "Sign in to reserve"}
               />
             </div>
           </div>
